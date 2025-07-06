@@ -1,0 +1,225 @@
+/* src/app/community-news/communityNews.module.css */
+
+/* Main container for the community news page, replicating dashboard layout */
+.container {
+  display: flex; /* Establishes a flex container for the main layout */
+  padding: 20px; /* Padding around the entire page content */
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7); /* Base gradient from homepage */
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Full viewport height minus navbar height */
+  gap: 20px; /* Space between sidebars and main content column */
+  position: relative; /* Needed for pseudo-element positioning */
+  overflow: hidden; /* Hides parts of the animation outside the container */
+  font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+/* Animated background pseudo-element, replicated from dashboard */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0; /* Keep background behind content */
+}
+
+/* Animation keyframes for the background, replicated from dashboard */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Main content area specific styles for community news */
+/* These apply the dashboard's "card" aesthetic to the main content area */
+.communityMainContent {
+  flex: 3; /* Takes 3 units of flex space, making it the widest column for articles */
+  background: white; /* White background for panels */
+  border-radius: 12px; /* Rounded corners for panels */
+  padding: 20px; /* Internal padding for panel content */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  position: relative; /* To ensure this element is above the ::before pseudo-element */
+  z-index: 1; /* To bring it to the foreground */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between individual news article cards */
+}
+
+/* NOTE: .communitySidebarLeft and .communitySidebarRight classes from this file
+   are now primarily for layout grouping in the JSX.
+   Their visual styles (background, border-radius, shadow, etc.) are handled by
+   their respective components (Sidebar/Rightbar) and their dedicated CSS modules.
+*/
+
+
+/* Styling for individual News Article Cards */
+.newsArticleCard {
+  background-color: #f8f9fa; /* Light background for individual articles, mimicking nested dashboard sections */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for a contained look */
+  text-align: left; /* Align text within articles to the left */
+  display: flex;
+  flex-direction: column; /* Stack title, meta, summary vertically */
+}
+
+.articleTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1c1c1e;
+  margin-bottom: 10px;
+  text-align: center; /* Center the title within the card */
+}
+
+.articleMeta {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 10px;
+}
+
+.articleSummary {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.readMoreButton {
+  align-self: flex-end; /* Push button to the right within the card */
+  padding: 8px 15px;
+  background-color: #007aff; /* Blue accent color, consistent with dashboard buttons */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none; /* Remove underline from link */
+  display: inline-flex; /* For consistent alignment */
+  justify-content: center;
+  align-items: center;
+}
+
+.readMoreButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Styling for content within sidebars (e.g., categories, trending lists) - these are general,
+   but most specific styles are now within sidebar.module.css and rightbar.module.css */
+.sidebarSection {
+  margin-bottom: 20px;
+}
+
+.sidebarSection h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #007aff; /* Accent color for sidebar headings */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sidebarSection ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.sidebarSection li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.sidebarSection a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebarSection a:hover {
+  color: #007aff;
+}
+
+/* New styles for the header container holding the title and button */
+.headerContainer {
+  display: flex;
+  justify-content: space-between; /* Pushes children to opposite ends */
+  align-items: center; /* Vertically centers children */
+  margin-bottom: 20px; /* Space below the header section */
+}
+
+/* New style for the "Post New" button */
+.postNewButton {
+  padding: 10px 20px;
+  background-color: #28a745; /* A pleasant green color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none; /* Remove underline from Link component */
+  display: inline-flex; /* For consistent flex alignment within the button text/icon */
+  justify-content: center;
+  align-items: center;
+}
+
+.postNewButton:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack columns vertically on smaller screens */
+    padding: 15px;
+    gap: 15px;
+  }
+  /* Hide sidebars on smaller screens for better mobile experience */
+  /* This display: none is crucial here for the overall page responsiveness */
+  .communitySidebarLeft, .communitySidebarRight {
+    display: none;
+  }
+  .communityMainContent {
+    padding: 25px 15px; /* Adjust padding for smaller screens */
+    gap: 15px; /* Adjust gap between articles */
+  }
+  .articleTitle {
+    font-size: 20px;
+  }
+  .articleSummary {
+    font-size: 15px;
+  }
+  .readMoreButton {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  .headerContainer {
+    flex-direction: column; /* Stack heading and button vertically on small screens */
+    align-items: flex-start; /* Align items to the start */
+    gap: 10px; /* Space between them */
+  }
+  .postNewButton {
+    align-self: stretch; /* Make button full width if desired on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .articleTitle {
+    font-size: 18px;
+  }
+  .articleSummary {
+    font-size: 14px;
+  }
+  .readMoreButton {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+}

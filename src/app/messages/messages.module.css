@@ -1,0 +1,514 @@
+/* src/app/messages/messages.module.css */
+
+/* Main container for the messages page */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Changed to center for vertical centering of chat layout */
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7);
+  min-height: calc(100vh - var(--navbar-height, 0px));
+  padding: 40px; /* Increased padding slightly for more breathing room */
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Main chat wrapper to hold conversation list and chat window */
+.chatWrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  max-width: 1100px; /* Wider for chat interface */
+  /* Adjusted height to account for increased container padding (40px top + 40px bottom = 80px) */
+  height: calc(100vh - var(--navbar-height, 0px) - 80px); 
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Hide scrollbars within the wrapper itself */
+}
+
+/* Conversation List (Left Pane) */
+.conversationList {
+  flex: 0 0 320px; /* Fixed width sidebar for conversations */
+  border-right: 1px solid #eee;
+  padding: 20px 0; /* Vertical padding, no horizontal */
+  background-color: #fcfcfc; /* Slightly different background */
+  overflow-y: auto; /* Scrollable if many conversations */
+  display: flex;
+  flex-direction: column;
+}
+
+.listTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1c1c1e;
+  padding: 0 20px; /* Padding to match items */
+}
+
+.noConversations {
+  padding: 0 20px;
+  color: #666;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.conversationItem {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none; /* Prevent text selection on click */
+}
+
+.conversationItem:hover {
+  background-color: #eef7ff; /* Light blue on hover */
+}
+
+.conversationItem.selected {
+  background-color: #e0e9ff; /* Darker blue if selected */
+  border-left: 4px solid #007aff; /* Highlight selected conversation */
+  padding-left: 16px; /* Adjust padding due to border */
+}
+
+.convPic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #007aff;
+}
+
+.convPicPlaceholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.convInfo {
+  flex-grow: 1;
+}
+
+.convInfo h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.lastMessage {
+  font-size: 0.9rem;
+  color: #666;
+  white-space: nowrap; /* Prevent message from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow */
+  max-width: 180px; /* Limit width of last message preview */
+}
+
+/* Chat Window (Right Pane) */
+.chatWindow {
+  flex-grow: 1; /* Takes remaining space */
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  position: relative; /* Ensure absolute positioning works within this */
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background-color: #fcfcfc; /* Consistent with conversation list header */
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.chatHeaderPic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #007aff;
+}
+
+.chatHeaderPicPlaceholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.chatHeader h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1c1c1e;
+  flex-grow: 1; /* Allows title to take available space */
+}
+
+.closeChatButton {
+  padding: 8px 15px;
+  background-color: #dc3545; /* Red for close */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  margin-left: 20px; /* Space from title */
+}
+
+.closeChatButton:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+
+.messageContainer {
+  flex-grow: 1; /* Messages take up all available vertical space */
+  padding: 20px;
+  overflow-y: auto; /* Scrollable message area */
+  display: flex;
+  flex-direction: column; /* Stack messages vertically */
+  gap: 10px; /* Space between messages */
+}
+
+.noMessages {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding-top: 50px; /* Push message down if empty */
+}
+
+.messageBubble {
+  max-width: 70%; /* Limit message bubble width */
+  padding: 10px 15px; /* Reverted padding to allow content and time to flow naturally */
+  border-radius: 15px;
+  position: relative; /* Keep relative for potential future absolute children */
+  word-wrap: break-word; /* Break long words */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex; /* Use flexbox to stack content and time */
+  flex-direction: column; /* Stack children vertically */
+}
+
+.messageBubble p {
+    margin-bottom: 5px; /* Add space between message content and timestamp */
+    text-align: left; /* Ensure text alignment within the paragraph */
+}
+
+.myMessage {
+  align-self: flex-end; /* Align to the right for current user */
+  background-color: #007aff; /* Blue for my messages */
+  color: white;
+  border-bottom-right-radius: 5px; /* Slightly different corner for visual distinction */
+}
+
+.theirMessage {
+  align-self: flex-start; /* Align to the left for other users */
+  background-color: #e0e0e0; /* Light gray for their messages */
+  color: #333;
+  border-bottom-left-radius: 5px;
+}
+
+.messageTime {
+  font-size: 0.75rem;
+  /* Removed absolute positioning */
+  display: block; /* Make it a block element to take its own line */
+  margin-top: 5px; /* Space between message content and time */
+}
+
+.myMessage .messageTime {
+  color: rgba(255, 255, 255, 0.7); /* Lighter color for time on my messages */
+  text-align: right; /* Align to the right within its bubble */
+}
+
+.theirMessage .messageTime {
+  color: rgba(0, 0, 0, 0.5); /* Darker color for time on their messages */
+  text-align: left; /* Align to the left within its bubble */
+}
+
+
+.messageInputForm {
+  display: flex;
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  background-color: #fcfcfc;
+  flex-shrink: 0; /* Prevent input form from shrinking */
+}
+
+.messageInput {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Rounded input field */
+  font-size: 1rem;
+  outline: none;
+  margin-right: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.messageInput:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.sendMessageButton {
+  padding: 10px 20px;
+  background-color: #007aff; /* Blue send button */
+  color: white;
+  border: none;
+  border-radius: 20px; /* Rounded button */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+.sendMessageButton:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.sendMessageButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.noConversationSelected {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+  padding: 20px;
+}
+
+.findPeopleLink {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.findPeopleLink:hover {
+  background-color: #218838;
+}
+
+
+/* Loading and Error States (reusing common styles) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Back to Dashboard Link at the bottom of the chat window */
+.backLinkContainer {
+  margin-top: auto; /* Pushes the container to the bottom of the flex column */
+  text-align: center;
+  width: 100%;
+  padding: 15px 20px; /* Add padding inside the container */
+  border-top: 1px solid #eee; /* Add a separator line */
+  background-color: #fcfcfc; /* Match input form background */
+  box-sizing: border-box; /* Include padding in width */
+  z-index: 10; /* Ensure it's above other elements if needed */
+}
+
+.backToDashboardLink {
+  color: #374151; /* Darker gray for better visibility */
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer; /* Ensure pointer cursor on hover */
+  display: inline-block; /* Allows padding and better clickable area */
+  padding: 5px 10px; /* Add some padding */
+  border-radius: 4px; /* Slightly rounded corners for the padding area */
+  pointer-events: auto; /* Ensure events are not blocked by parent */
+}
+
+.backToDashboardLink:hover {
+  color: #007aff; /* Change to blue on hover for clear interaction */
+  background-color: #e6f0ff; /* Light blue background on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .chatWrapper {
+    flex-direction: column; /* Stack conversations and chat window vertically */
+    height: auto; /* Allow height to adjust */
+    max-height: 90vh; /* Max height for wrapper */
+  }
+
+  .conversationList {
+    flex: none; /* Remove flex sizing */
+    width: 100%; /* Take full width */
+    border-right: none;
+    border-bottom: 1px solid #eee; /* Add bottom border */
+    max-height: 300px; /* Limit height of conversation list */
+  }
+
+  .chatWindow {
+    flex: none; /* Remove flex sizing */
+    width: 100%; /* Take full width */
+    height: auto;
+  }
+
+  .chatHeader {
+    padding: 10px 15px; /* Adjust padding */
+  }
+
+  .messageContainer {
+    padding: 15px; /* Adjust padding */
+  }
+
+  .messageBubble {
+    max-width: 85%; /* Allow bubbles to be wider */
+  }
+
+  .messageInputForm {
+    padding: 10px 15px;
+  }
+  .backLinkContainer { /* Adjust for smaller screens */
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+  .listTitle {
+    font-size: 20px;
+  }
+  .chatHeader h2 {
+    font-size: 1.1rem;
+  }
+  .conversationItem {
+    padding: 10px 15px;
+  }
+  .convPic, .convPicPlaceholder {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .convInfo h3 {
+    font-size: 1rem;
+  }
+  .lastMessage {
+    font-size: 0.85rem;
+    max-width: 150px;
+  }
+  .messageBubble {
+    padding: 8px 12px; /* Adjusted padding for smaller screens, removed extra bottom padding */
+  }
+  .messageInput {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  .sendMessageButton {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  .closeChatButton {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}

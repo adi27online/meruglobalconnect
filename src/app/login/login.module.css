@@ -1,0 +1,209 @@
+/* src/app/login/login.module.css */
+
+/* Consistent full-page background and centering, similar to home and register */
+.heroWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7); /* Subtle gradient background */
+  min-height: 100vh;
+  padding: 40px; /* Generous padding */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background pseudo-element, consistent across auth/home pages */
+.heroWrapper::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes, consistent across auth/home pages */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Content box for the login form, consistent with register page */
+.heroContentSmallBox {
+  position: relative;
+  z-index: 1; /* Ensures box is above the animated background */
+  width: 100%;
+  max-width: 400px; /* Max width for the form container */
+  background: white; /* Clean white background */
+  padding: 32px; /* Generous padding */
+  border-radius: 16px; /* Consistent large border-radius */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); /* Soft, subtle shadow */
+  text-align: center;
+}
+
+/* Form title style */
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #1c1c1e; /* Dark, readable text color */
+}
+
+/* Form container */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between form elements */
+}
+
+/* Input field styles */
+.input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Consistent border-radius for inputs */
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  font-family: 'Arial', sans-serif;
+}
+
+.input:focus {
+  border-color: #007aff; /* Apple-like blue accent on focus */
+}
+
+/* Button styles */
+.button {
+  padding: 12px;
+  background-color: black; /* Consistent button color (black for primary actions) */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Consistent border-radius for buttons */
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  font-family: 'Arial', sans-serif;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #1f2937; /* Darker gray on hover */
+}
+
+.button:disabled {
+  opacity: 0.7; /* Dim when disabled */
+  cursor: not-allowed;
+}
+
+/* Message text style (for success or error messages) */
+.message {
+  margin-top: 12px;
+  color: #333; /* Default text color, can be overridden for errors (e.g., text-red-600) */
+  font-size: 14px;
+}
+
+/* Container for the "Back to Home" link */
+.backLinkContainer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* Style for the "Back to Home" link */
+.backToHomeLink {
+  color: #6b7280; /* Gray color */
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.backToHomeLink:hover {
+  color: #374151; /* Darker gray on hover */
+}
+
+/* Resend verification link style */
+.resendVerificationLink {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #007aff; /* Apple-like blue for links */
+  text-decoration: none;
+  display: block; /* Ensures it takes full width and centers */
+  transition: color 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.resendVerificationLink:hover {
+  color: #0056b3; /* Darker blue on hover */
+  text-decoration: underline;
+}
+
+/* Loading and error states (reusing consistent styles) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+}
+.errorState .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+.errorState .button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}

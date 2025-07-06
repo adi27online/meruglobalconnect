@@ -1,0 +1,395 @@
+/* src/app/jobs-careers/jobsCareers.module.css */
+
+.pageContainer {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff; /* White background for the main content area */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Space between the two main sections */
+}
+
+.mainTitle {
+  font-size: 2.8em;
+  color: #2c3e50; /* Darker blue-grey for main titles */
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.mainTitle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #007bff; /* Primary blue underline */
+  border-radius: 2px;
+}
+
+/* Section styling (used for both forms and lists) */
+.tabSection { /* Reusing this name, but it now acts as a general section wrapper */
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 25px;
+  background-color: #fcfcfc; /* Slightly off-white for sections */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.sectionTitle {
+  font-size: 2em;
+  color: #34495e; /* Dark blue-grey for section titles */
+  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.loginPrompt {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8d7da; /* Light red for alerts */
+  color: #721c24; /* Dark red text */
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.loginLink {
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Form Styles */
+.profileFormContainer,
+.referralFormContainer { /* Using similar styling for both forms */
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  margin-top: 20px;
+}
+
+.seekerProfileForm,
+.referralForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.inputField,
+.textareaField,
+.selectField {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #495057;
+  box-sizing: border-box; /* Include padding in width */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputField:focus,
+.textareaField:focus,
+.selectField:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.textareaField {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.fileInput {
+  padding: 10px 0;
+}
+
+.fileInfo {
+  font-size: 0.85em;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.inputHint {
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Dynamic form items (Education/Experience) */
+.dynamicFormItem {
+  border: 1px solid #eceff1;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8fbfd;
+  margin-bottom: 15px;
+  position: relative;
+  padding-top: 40px; /* Space for remove button */
+}
+
+.dynamicFormItem::before {
+  content: 'Entry';
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #6c757d;
+}
+
+.addButton {
+  background-color: #28a745; /* Green for add buttons */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.addButton:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+.removeButton {
+  background-color: #dc3545; /* Red for remove buttons */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+  float: right; /* Position it to the right within the dynamic item */
+}
+
+.removeButton:hover {
+  background-color: #c82333;
+}
+
+.submitButton {
+  background-color: #007bff; /* Blue for primary action */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loadingMessage,
+.noDataMessage {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.errorMessage {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.successMessage {
+  color: #28a745;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* List/Card Styles */
+.listSection {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed #e0e0e0; /* Separator for lists below forms */
+}
+
+.listTitle {
+  font-size: 1.8em;
+  color: #34495e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dataList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 25px;
+}
+
+.dataCard {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dataCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+  font-size: 1.4em;
+  color: #007bff; /* Primary blue for card titles */
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cardDetail {
+  font-size: 0.95em;
+  color: #555;
+  line-height: 1.5;
+}
+
+.cardLink {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.cardSection h4 {
+  font-size: 1.1em;
+  color: #34495e;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.subDetail {
+  font-size: 0.9em;
+  color: #666;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+/* Responsive adjustments for the page content */
+@media (max-width: 992px) {
+  .pageContainer {
+    padding: 20px 15px;
+    gap: 25px;
+  }
+  .mainTitle {
+    font-size: 2.2em;
+  }
+  .sectionTitle {
+    font-size: 1.8em;
+  }
+  .dataList {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 15px 10px;
+    gap: 20px;
+  }
+  .mainTitle {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  .mainTitle::after {
+    width: 60px;
+    height: 3px;
+  }
+  .sectionTitle {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  .tabSection {
+    padding: 15px;
+  }
+  .dataList {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formGroup label {
+    font-size: 0.9em;
+  }
+  .inputField,
+  .textareaField,
+  .selectField {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+  .submitButton, .addButton {
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+  .removeButton {
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+}

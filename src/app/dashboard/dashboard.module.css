@@ -1,0 +1,509 @@
+/* src/app/dashboard/dashboard.module.css */
+
+/* Main container for the dashboard */
+.container {
+  display: flex; /* Establishes a flex container for the main layout */
+  padding: 20px; /* Padding around the entire dashboard content */
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7); /* Base gradient from homepage */
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Full viewport height minus navbar height */
+  gap: 20px; /* Space between sidebar, main content, and rightbar columns */
+  position: relative; /* Needed for pseudo-element positioning */
+  overflow: hidden; /* Hides parts of the animation outside the container */
+  font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Common styles for the main content panels (sidebar, main, rightbar) */
+.sidebar, .main, .rightbar {
+  background: white; /* White background for panels */
+  border-radius: 12px; /* Rounded corners for panels */
+  padding: 20px; /* Internal padding for panel content */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  position: relative; /* To ensure these elements are above the ::before pseudo-element */
+  z-index: 1; /* To bring them to the foreground */
+}
+
+/* Left Sidebar specific styles */
+.sidebar {
+  flex: 1; /* Takes 1 unit of flex space */
+}
+
+/* Main content area specific styles */
+.main {
+  flex: 3; /* Takes 3 units of flex space, making it the widest column */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text within the main content area */
+}
+
+/* Right Sidebar specific styles */
+.rightbar {
+  flex: 1; /* Takes 1 unit of flex space, matching sidebar */
+}
+
+/* NEW: Wrapper for the profile content within the dashboard main section */
+.dashboardProfileContent {
+  width: 100%; /* Take full width of its parent (.main) */
+  max-width: 700px; /* Limit content width for readability */
+  padding: 0; /* Padding handled by .main */
+  margin-bottom: 30px; /* Space before logout button */
+  text-align: center; /* Ensure content is centered */
+}
+
+
+/* Profile Picture and Placeholder */
+.profilePic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #007aff; /* Accent border */
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profilePicPlaceholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 60px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+}
+
+.welcomeTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1c1c1e;
+  margin-bottom: 10px; /* Adjust margin as subtitle is removed */
+}
+
+/* Profile Details Section */
+.profileDetails {
+  text-align: left; /* Align text within details to the left */
+  width: 100%; /* Take full width of its parent */
+  padding: 0 20px; /* Add horizontal padding */
+  box-sizing: border-box; /* Include padding in width */
+  margin-bottom: 20px;
+}
+
+.profileDetails p {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.profileDetails p strong {
+  color: #1c1c1e;
+  margin-right: 5px;
+}
+
+/* Spouse and Children Sections (reused from profile view) */
+.spouseSection, .childrenSection, .matrimonyDetailsSection { /* Added matrimonyDetailsSection */
+  background-color: #f8f9fa; /* Light background for the whole section */
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for a contained look */
+  text-align: left;
+}
+
+.spouseSection h3, .childrenSection h3, .matrimonyDetailsSection h2 { /* Added matrimonyDetailsSection */
+  font-size: 20px;
+  font-weight: 600;
+  color: #007aff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.childEntry {
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  margin-bottom: 10px;
+}
+
+.childEntry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.childDetail {
+  margin-left: 15px; /* Indent child details */
+  font-size: 15px;
+  color: #555;
+}
+
+/* Matrimony Status Section */
+.matrimonyStatusSection {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    text-align: center; /* Center content within this section */
+}
+
+.matrimonyStatusSection h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #007aff;
+    margin-bottom: 15px;
+}
+
+.matrimonyEnabled {
+    color: #28a745; /* Green */
+    font-weight: bold;
+    font-size: 1.1em;
+    display: inline-flex; /* For checkmark alignment */
+    align-items: center;
+    gap: 5px;
+}
+
+.matrimonyDisabled {
+    color: #dc3545; /* Red */
+    font-weight: bold;
+    font-size: 1.1em;
+    display: inline-flex; /* For crossmark alignment */
+    align-items: center;
+    gap: 5px;
+}
+
+.checkmark, .crossmark {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.matrimonyHelpText {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* Matrimony Additional Details Section */
+.matrimonyAdditionalDetailsSection {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.matrimonyAdditionalDetailsSection h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #007aff;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.matrimonyHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.matrimonySectionProfilePic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007aff;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.matrimonySectionProfilePicPlaceholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #666;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border: 2px solid #ccc;
+}
+
+.matrimonyBasicInfo {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.matrimonyBasicInfo p {
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+.matrimonyBasicInfo p:last-child {
+    margin-bottom: 0;
+}
+
+.matrimonyGallery {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.matrimonyGallery h4 {
+    font-size: 18px;
+    color: #007aff;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.matrimonyPicturesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.matrimonyGalleryPic {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.matrimonyGalleryPic:hover {
+    transform: scale(1.05);
+}
+
+.noAdditionalDetails {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+/* Action buttons/links container */
+.profileActions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px;
+  width: 100%; /* Take full width of parent */
+}
+
+/* Edit Profile Button - aligned with login.module.css .button */
+.editProfileButton {
+  padding: 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editProfileButton:hover {
+  background-color: #1f2937;
+  transform: translateY(-2px);
+}
+
+
+/* Logout Button */
+.logoutButton {
+  padding: 12px 25px;
+  background-color: #dc3545; /* Red for logout */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Arial', sans-serif;
+  margin-top: auto; /* Pushes the button to the bottom of the main flex container */
+  margin-bottom: 0; /* Remove any default bottom margin */
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Loading and error states (reused common styles) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+    font-family: 'Arial', sans-serif;
+}
+.errorState .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+.errorState .button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack columns vertically on smaller screens */
+    padding: 15px;
+    gap: 15px;
+  }
+  .sidebar, .rightbar {
+    display: none; /* Hide sidebars completely on small screens */
+  }
+  .main { /* Main content takes full width when sidebars are hidden */
+    padding: 25px 15px; /* Adjust padding for smaller screens */
+  }
+  .dashboardProfileContent {
+    padding: 0; /* No inner padding, main handles it */
+  }
+  .welcomeTitle {
+    font-size: 28px;
+  }
+  .profilePic, .profilePicPlaceholder {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+  }
+  .profileDetails {
+    padding: 0;
+  }
+  .editProfileButton, .logoutButton {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  .matrimonyPicturesContainer {
+    justify-content: flex-start; /* Align images to left on small screens */
+  }
+  .matrimonyGalleryPic {
+    width: 80px; /* Smaller thumbnails on small screens */
+    height: 80px;
+  }
+  .matrimonyHeader {
+      flex-direction: column; /* Stack image and info vertically */
+      align-items: center; /* Center items in column */
+      text-align: center; /* Center text */
+      gap: 10px;
+  }
+  .matrimonyBasicInfo {
+      text-align: center; /* Center text info on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .welcomeTitle {
+    font-size: 24px;
+  }
+  .profilePic, .profilePicPlaceholder {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+  .profileDetails p {
+    font-size: 14px;
+  }
+  .editProfileButton, .logoutButton {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}

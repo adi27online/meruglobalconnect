@@ -1,0 +1,320 @@
+/* Consistent full-page background and centering */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7);
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Account for navbar */
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Main content box for requests */
+.requestsBox {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px; /* Adjust width for requests list */
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: #1c1c1e;
+}
+
+.actionMessage {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e6f7ff; /* Light blue for info messages */
+    color: #007aff;
+    border: 1px solid #99d6ff;
+    font-weight: 500;
+}
+
+.noRequestsMessage {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Requests List Container */
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between request cards */
+  margin-top: 20px;
+}
+
+/* Individual Request Card */
+.requestCard {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between avatar, info, and buttons */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e0e0e0;
+  text-align: left; /* Align text within card to left */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.senderPic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0; /* Prevent image from shrinking */
+  border: 3px solid #007aff;
+}
+
+.senderPicPlaceholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 35px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border: 2px solid #ccc;
+}
+
+.senderInfo {
+  flex-grow: 1; /* Allows sender info to take up available space */
+  min-width: 150px; /* Ensure info doesn't get too squeezed */
+}
+
+.senderInfo h3 {
+  font-size: 1.3rem; /* Sender name size */
+  color: #1c1c1e;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.senderLocation, .senderBio {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.senderBio {
+    font-style: italic;
+    color: #777;
+    margin-top: 8px;
+}
+.senderLocation:last-child, .senderBio:last-child {
+    margin-bottom: 0;
+}
+
+.requestActions {
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  display: flex;
+  gap: 10px; /* Space between accept/reject buttons */
+  align-items: center;
+  justify-content: flex-end; /* Push buttons to the right */
+  margin-left: auto; /* Push actions to the far right */
+}
+
+/* Accept Button */
+.acceptButton {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green for accept */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.acceptButton:hover:not(:disabled) {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px);
+}
+
+.acceptButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Reject Button */
+.rejectButton {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red for reject */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.rejectButton:hover:not(:disabled) {
+  background-color: #c82333; /* Darker red on hover */
+  transform: translateY(-2px);
+}
+
+.rejectButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* Loading and error states (reusing consistent styles) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+
+/* Back to Dashboard Link */
+.backLinkContainer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.backToDashboardLink {
+  color: #6b7280;
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.backToDashboardLink:hover {
+  color: #374151;
+}
+
+/* Basic Responsiveness */
+@media (max-width: 768px) {
+  .requestsBox {
+    padding: 20px;
+  }
+  .requestCard {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+  .senderInfo {
+    min-width: unset; /* Remove min-width on small screens */
+    width: 100%; /* Take full width */
+  }
+  .requestActions {
+    width: 100%; /* Buttons take full width */
+    justify-content: center; /* Center buttons */
+    margin-left: 0;
+    margin-top: 15px; /* Add space above buttons if stacked */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px;
+  }
+  .senderPic, .senderPicPlaceholder {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+  .senderInfo h3 {
+    font-size: 1.1rem;
+  }
+  .senderLocation, .senderBio {
+    font-size: 0.85rem;
+  }
+  .acceptButton, .rejectButton {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}

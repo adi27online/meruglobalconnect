@@ -1,0 +1,100 @@
+/* src/components/Navbar.module.css */
+
+.navbar {
+    background-color: #5b709b; /* Dark background */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    position: sticky; /* Makes navbar stick to the top */
+    top: 0;
+    z-index: 1000; /* Ensures it stays on top of other content */
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.8em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.logo a:hover {
+    color: #61dafb; /* Light blue on hover */
+}
+
+.navLinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px; /* Space between links */
+}
+
+.navLinks li {
+    display: inline-block; /* Ensures list items are in a row */
+}
+
+.navLinks a,
+.logoutButton {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.navLinks a:hover {
+    background-color: #7ca9d1; /* Slightly lighter background on hover */
+    color: #61dafb;
+}
+
+.logoutButton {
+    background-color: #dc3545; /* Red for logout */
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logoutButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.badge {
+    background-color: #ffc107; /* Yellow badge for notifications */
+    color: #54728e;
+    font-size: 0.75em;
+    padding: 3px 7px;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: super; /* Position badge slightly higher */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    .navLinks {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .navLinks a,
+    .logoutButton {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+}

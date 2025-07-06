@@ -1,0 +1,200 @@
+/* src/app/f1-students-corner/f1StudentsCorner.module.css */
+
+/* --- Base Styling & Local Colors/Variables (scoped to this module's container) --- */
+.container {
+  /* Overall page background replicating dashboard/community news base */
+  display: flex; /* Stacks inner sections vertically */
+  flex-direction: column;
+  gap: 20px; /* Space between the "news cards" (sections) */
+
+  padding: 30px; /* Padding inside the main content area */
+  background: white; /* Main content area background, like a big news card */
+  border-radius: 12px; /* Rounded corners for the main content block */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+
+  font-family: 'Arial', sans-serif; /* Consistent font */
+  max-width: 900px; /* Adjusted max-width to match news article card width */
+  margin: 30px auto; /* Centered on the page */
+
+  /* CSS Variables - Defined here to match the image's aesthetic */
+  --news-card-bg: #f8f9fa; /* Light background for individual news-like sections */
+  --news-title-color: #1c1c1e; /* Very dark gray for main titles */
+  --news-meta-color: #666; /* Medium gray for meta information */
+  --news-summary-color: #333; /* Darker gray for summary text */
+  --read-more-button-color: #007aff; /* Blue from "Read More" button */
+  --read-more-button-hover: #0056b3; /* Darker blue for hover */
+  --post-new-button-color: #3158c2; /* Green from "Post New" button */
+  --post-new-button-hover: #214788; /* Darker green for hover */
+}
+
+/* --- Section Styling (Now resembling News Article Cards) --- */
+.welcomeSection,
+.buttonsSection,
+.infoSection {
+  background-color: white; /* White background for individual sections, like news cards */
+  padding: 25px; /* Internal padding for section content */
+  border-radius: 12px; /* Rounded corners for sections */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow for depth, mimicking article cards */
+  text-align: left; /* Default text alignment */
+
+  display: flex; /* Stack content within sections */
+  flex-direction: column;
+  gap: 15px; /* Space between elements within a section */
+}
+
+/* Specific styling for the Welcome Section - still a bit unique */
+.welcomeSection {
+  text-align: center; /* Content remains centered in welcome */
+  background: linear-gradient(135deg, #f3f4f5 0%, #f3f4f5); /* Retaining light blue gradient */
+  border: 1px solid #b3d9f0;
+}
+
+/* Specific styling for the Info Section - now more like a regular card */
+.infoSection {
+  background-color: white; /* Standard white background */
+  border-left: none; /* Removing the left border */
+  padding: 25px; /* Consistent padding */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Same as other cards */
+}
+
+
+/* --- Typography --- */
+.pageTitle {
+  /* This will act like the main page title (e.g., "Latest Community News") */
+  font-size: 36px; /* Larger, prominent title */
+  font-weight: 700;
+  color: var(--news-title-color); /* Dark text color */
+  margin-bottom: 20px;
+  text-align: left; /* Aligned left, like "Latest Community News" */
+}
+
+.welcomeText {
+  font-size: 18px; /* Similar to article summary text */
+  font-weight: 500;
+  color: var(--news-summary-color);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left; /* Default alignment */
+}
+
+.sectionTitle {
+  /* This will act like the news article title (e.g., "Annual Gilbert Neighborhood Cleanup Day") */
+  font-size: 22px; /* Matching articleTitle size */
+  font-weight: 600;
+  color: var(--news-title-color);
+  margin-bottom: 10px;
+  text-align: center; /* Centered like article titles */
+  position: relative;
+  padding-bottom: 0; /* No underline, so no padding-bottom for it */
+}
+
+/* Remove sectionTitle::after as there's no underline in the news card image */
+.sectionTitle::after {
+  content: none;
+}
+
+/* New meta text style for date/admin, similar to articleMeta */
+.sectionMeta {
+  font-size: 14px;
+  color: var(--news-meta-color);
+  margin-bottom: 15px;
+  text-align: center; /* Centered like articleMeta */
+  border-bottom: 1px dashed var(--border-color); /* Dashed border from articleMeta */
+  padding-bottom: 10px;
+}
+
+
+/* --- Button Styling --- */
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+.actionButton {
+  /* --- CONSTANT SIZE: Fixed width for desktop --- */
+  width: 200px; /* Explicit fixed width for constant size on desktop */
+  min-width: 180px; /* A minimum width fallback (should be less than 'width') */
+
+  /* Color and font matching .postNewButton */
+  padding: 10px 20px; /* From .postNewButton */
+  font-size: 16px; /* From .postNewButton */
+  background-color: var(--post-new-button-color); /* Green color from .postNewButton */
+  color: white;
+  border: none;
+  border-radius: 16px; /* From .postNewButton */
+  font-weight: 400; /* From .postNewButton */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  align-self: auto; /* Allow buttonGroup to center */
+  letter-spacing: normal; /* Reset letter-spacing */
+  text-transform: none; /* Reset text-transform */
+}
+
+.actionButton:hover {
+  background-color: var(--post-new-button-hover); /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+}
+
+.actionButton:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  .pageTitle {
+    font-size: 28px;
+    text-align: center; /* Center main title on mobile */
+  }
+  .welcomeSection,
+  .buttonsSection,
+  .infoSection {
+    padding: 20px;
+  }
+  .sectionTitle {
+    font-size: 20px;
+  }
+  .actionButton {
+    /* Responsive adjustment for constant size: stretch to fill width */
+    width: 80%; /* Takes 80% width on tablets */
+    min-width: unset; /* Override fixed width for mobile responsiveness */
+    padding: 10px 15px; /* Adjusted padding for smaller screens */
+    font-size: 15px; /* Adjusted font size for smaller screens */
+  }
+  .buttonGroup {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+    margin: 15px auto;
+  }
+  .pageTitle {
+    font-size: 24px;
+  }
+  .sectionTitle {
+    font-size: 18px;
+  }
+  .actionButton {
+    width: 90%; /* Adjust width for very small phone screens */
+    padding: 8px 12px; /* Further adjusted padding */
+    font-size: 14px; /* Further adjusted font size for very small screens */
+  }
+}

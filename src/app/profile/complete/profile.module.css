@@ -1,0 +1,483 @@
+/* Consistent full-page background and centering */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7);
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Account for navbar */
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form container box */
+.profileBox {
+  position: relative;
+  z-index: 1; /* Ensures box is above the animated background */
+  width: 100%;
+  max-width: 550px; /* Wider than login/register for more fields */
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.title {
+  font-size: 28px; /* Slightly larger title for this form */
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: #1c1c1e;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* Slightly more space between form groups */
+}
+
+.inputGroup {
+  text-align: left; /* Align labels and inputs to the left */
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%; /* Full width within its container */
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.input:focus {
+  border-color: #007aff;
+}
+
+.textarea {
+  resize: vertical; /* Allow vertical resizing for textareas */
+  min-height: 80px; /* Minimum height for textarea */
+}
+
+.fileInput {
+  /* Basic styling to make it look like other inputs */
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+.fileInput:focus {
+  border-color: #007aff;
+}
+
+.profilePicPreview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 10px;
+  border: 2px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: block; /* To center it if needed, or align with text */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* SPOUSE AND CHILDREN SECTIONS */
+.childrenSection, .spouseSection, .matrimonyDetailsSection { /* Added matrimonyDetailsSection */
+  background-color: #f8f9fa; /* Light background for the whole section */
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for a contained look */
+  text-align: left; /* Align text within these sections to the left */
+}
+
+.childrenSection h2, .spouseSection h2, .matrimonyDetailsSection h2 { /* Added matrimonyDetailsSection */
+  font-size: 22px;
+  font-weight: 600;
+  color: #007aff;
+  margin-bottom: 20px;
+  text-align: center; /* Center the sub-heading */
+}
+
+.childInputGroup {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  gap: 10px; /* Space between child inputs */
+  align-items: center;
+  margin-bottom: 15px; /* Space between each child's input group */
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.03);
+}
+
+.childInputGroup h3 {
+    width: 100%; /* Make child number take full width */
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.childInputGroup .input,
+.childInputGroup .selectInput {
+  flex: 1 1 calc(33% - 20px); /* Approx 1/3 width, accounting for gap */
+  min-width: 120px; /* Minimum width for inputs */
+}
+
+.childInputGroup .selectInput {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  background-color: white; /* Ensure consistent background */
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  -webkit-appearance: none; /* Remove default arrow on select */
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23333'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%;
+  background-size: 0.8em auto;
+}
+
+.childInputGroup .selectInput:focus {
+  border-color: #007aff;
+}
+
+
+.removeButton {
+  padding: 8px 15px;
+  background-color: #dc3545; /* Red for remove action */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  margin-top: 5px; /* Adjust margin for alignment */
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-left: auto; /* Push to the right */
+}
+
+.removeButton:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+.addButton {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green for add action */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  margin-top: 15px;
+  width: auto; /* Allow button to size to content */
+  align-self: center; /* Center the button within the flex container */
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+/* NEW STYLES FOR CHECKBOX TOGGLE */
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  user-select: none; /* Prevent text selection on click */
+}
+
+.checkboxInput {
+  /* Hide the default checkbox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  display: inline-block;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.checkboxInput:checked {
+  background-color: #007aff; /* Blue when checked */
+  border-color: #007aff;
+}
+
+/* Custom checkmark */
+.checkboxInput:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%; /* A simple dot for checked state */
+  background-color: white;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f0f0f0;
+}
+
+.checkboxHelpText {
+  font-size: 13px;
+  color: #777;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+
+.button {
+  padding: 14px; /* Slightly larger button for primary action */
+  background-color: #007aff; /* Blue primary button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600; /* Bolder text */
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+  font-family: 'Arial', sans-serif;
+  margin-top: 10px; /* Space above button */
+}
+
+.button:hover:not(:disabled) {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #333;
+}
+
+/* Loading and error states (reusing dashboard styles for consistency) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+    font-family: 'Arial', sans-serif;
+}
+.errorState .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+.errorState .button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+
+/* NEW: Matrimony Pictures Section Styles */
+.matrimonyPreviewsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center; /* Center images if not filling row */
+}
+
+.matrimonyPreviewWrapper {
+  position: relative;
+  width: 100px; /* Fixed size for preview thumbnails */
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.matrimonyPicPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image fills the box */
+  display: block;
+}
+
+.removeMatrimonyPicButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(220, 53, 69, 0.8); /* Red, slightly transparent */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+}
+
+.removeMatrimonyPicButton:hover {
+  background-color: #dc3545;
+}
+
+.noMatrimonyPics {
+    font-size: 0.9em;
+    color: #999;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+/* Basic Responsiveness for the form container */
+@media (max-width: 600px) {
+  .profileBox {
+    padding: 20px;
+    margin: 0 15px; /* Add some horizontal margin on very small screens */
+  }
+  .title {
+    font-size: 24px;
+  }
+  .form {
+    gap: 12px;
+  }
+  .button {
+    padding: 12px;
+    font-size: 16px;
+  }
+  .childInputGroup {
+    flex-direction: column; /* Stack child inputs vertically on small screens */
+    align-items: stretch;
+  }
+  .childInputGroup .input,
+  .childInputGroup .selectInput,
+  .removeButton {
+    width: 100%; /* Make child inputs and buttons full width */
+    margin-left: 0;
+  }
+  .matrimonyPreviewsContainer {
+    justify-content: flex-start; /* Align images to left on small screens */
+  }
+  .matrimonyPreviewWrapper {
+    width: 80px; /* Smaller thumbnails on small screens */
+    height: 80px;
+  }
+}

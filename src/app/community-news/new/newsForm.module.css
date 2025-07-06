@@ -1,0 +1,153 @@
+/* src/app/community-news/new/newsForm.module.css */
+
+.formContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 700px; /* Limit width for readability */
+  margin: 40px auto; /* Center the form on the page */
+  text-align: center; /* Center the title */
+}
+
+.formTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1c1c1e;
+  margin-bottom: 30px;
+}
+
+.newsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left; /* Align form labels/inputs to the left */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.inputField,
+.textareaField {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding in width */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputField:focus,
+.textareaField:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  outline: none;
+}
+
+.textareaField {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 120px;
+}
+
+.fileInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  font-size: 15px;
+  color: #333;
+}
+
+.fileInput::file-selector-button {
+  background-color: #007aff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 15px;
+}
+
+.fileInput::file-selector-button:hover {
+  background-color: #0056b3;
+}
+
+.submitButton {
+  padding: 15px 25px;
+  background-color: #007aff; /* Blue accent color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: center; /* Center the button */
+  width: 100%;
+  max-width: 300px; /* Limit button width */
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.errorMessage {
+  color: #dc3545; /* Red for errors */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.successMessage {
+  color: #28a745; /* Green for success */
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Responsive adjustments for the form */
+@media (max-width: 600px) {
+  .formContainer {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  .formTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .inputField,
+  .textareaField,
+  .submitButton {
+    font-size: 15px;
+    padding: 10px;
+  }
+  .submitButton {
+    max-width: 100%; /* Full width on small screens */
+  }
+}

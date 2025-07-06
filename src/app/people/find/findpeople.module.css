@@ -1,0 +1,467 @@
+/* src/app/people/find/findpeople.module.css */
+
+/* Consistent full-page background and centering */
+.container {
+  display: flex; /* Establishes a flex container for the main layout */
+  justify-content: center; /* Centers content horizontally */
+  align-items: flex-start; /* Aligns items to the top */
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7);
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Account for navbar */
+  padding: 20px; /* Padding around the entire dashboard content */
+  gap: 20px; /* Space between sidebar, main content, and rightbar columns */
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Common styles for the main content panels (sidebar, main, rightbar) */
+/* These styles are applied to the components directly in React, but defining them here
+   provides consistent documentation and can be used if structure changes. */
+/*
+.sidebar, .main, .rightbar {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+*/
+
+/* Left Sidebar specific styles (for the container div passed to Sidebar component) */
+/* These styles are applied directly to Sidebar component as inline styles for now.
+   If Sidebar used a className, it would apply here. */
+.sidebar {
+  flex: 1; /* Takes 1 unit of flex space */
+  min-width: 200px; /* Minimum width for sidebar */
+  max-width: 250px; /* Maximum width for sidebar */
+  /* Replicate styling from Dashboard's sidebar */
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+/* Main Content Area specific styles for find people page */
+.mainContent { /* NEW class name to wrap the content */
+  flex: 3; /* Takes more flex space than sidebars */
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+  text-align: center; /* Center content horizontally within the main panel */
+}
+
+/* Right Sidebar specific styles (for the container div passed to Rightbar component) */
+/* Similar to sidebar, these styles are applied directly to Rightbar component as inline styles for now. */
+.rightbar {
+  flex: 1; /* Takes 1 unit of flex space */
+  min-width: 200px; /* Minimum width for rightbar */
+  max-width: 250px; /* Maximum width for rightbar */
+  /* Replicate styling from Dashboard's rightbar */
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+
+/* The inner box containing the search elements and user list */
+.findPeopleBox {
+    width: 100%; /* Ensure it fills its parent `mainContent` */
+    padding: 0; /* Remove padding as it's handled by .mainContent */
+    box-shadow: none; /* Remove redundant shadow */
+    background: none; /* Remove redundant background */
+    border-radius: 0; /* Remove redundant border-radius */
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: #1c1c1e;
+}
+
+/* Search Inputs Container */
+.searchInputs {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 10px; /* Space between inputs */
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Search Input Field */
+.searchInput {
+    flex: 1 1 200px; /* Allows inputs to grow/shrink, with a base width */
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.searchInput:focus {
+    border-color: #007aff;
+}
+
+/* Search Button */
+.searchButton {
+    padding: 10px 20px;
+    background-color: #007aff; /* Blue search button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: 'Arial', sans-serif;
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+.searchButton:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+
+.actionMessage {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e6f7ff; /* Light blue for info messages */
+    color: #007aff;
+    border: 1px solid #99d6ff;
+    font-weight: 500;
+}
+
+.noUsersMessage {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* User List Container */
+.usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between user cards */
+  margin-top: 20px;
+}
+
+/* Individual User Card */
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between avatar and info */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e0e0e0;
+  text-align: left; /* Align text within card to left */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.userPic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0; /* Prevent image from shrinking */
+  border: 3px solid #007aff; /* Accent border */
+}
+
+.userPicPlaceholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 35px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border: 2px solid #ccc;
+}
+
+.userInfo {
+  flex-grow: 1; /* Allows info to take up available space */
+  min-width: 150px; /* Ensures info doesn't get too narrow */
+}
+
+.userInfo h3 {
+  font-size: 1.3rem;
+  color: #1c1c1e;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.userLocation, .userBio, .userProfession { /* Added .userProfession */
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.userBio {
+    font-style: italic;
+    color: #777;
+    margin-top: 8px;
+}
+
+.userActions { /* This div now holds action buttons */
+    flex-shrink: 0;
+    margin-left: auto; /* Push actions to the right */
+    display: flex; /* Make it a flex container for its buttons */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+    align-items: flex-end; /* Align buttons to the right */
+}
+
+.sendRequestButton {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green for send request */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  text-decoration: none; /* For button-like links */
+  display: inline-flex; /* For button-like links */
+  justify-content: center;
+  align-items: center;
+}
+
+.sendRequestButton:hover:not(:disabled) {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px);
+}
+
+.sendRequestButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* NEW: Style for the "View Profile" button */
+.viewProfileButton {
+  padding: 10px 20px;
+  background-color: #007aff; /* Blue for view profile */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  text-decoration: none; /* Important for Link component */
+  display: inline-flex; /* Important for Link component to take padding */
+  justify-content: center;
+  align-items: center;
+}
+
+.viewProfileButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px);
+}
+
+
+/* Back to Dashboard Link */
+.backLinkContainer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.backToDashboardLink {
+  color: #6b7280;
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.backToDashboardLink:hover {
+  color: #374151;
+}
+
+
+/* Loading and error states (reusing consistent styles) */
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Basic Responsiveness */
+@media (max-width: 992px) { /* Adjusted breakpoint for tablet/smaller desktop */
+  .container {
+    flex-direction: column; /* Stack columns vertically on smaller screens */
+    padding: 15px;
+    gap: 15px;
+    align-items: center; /* Center stacked items */
+  }
+  .sidebar, .rightbar {
+    /* Make sidebars take full width and show them */
+    flex: none;
+    width: 100%;
+    max-width: 600px; /* Limit their max width when stacked */
+    margin: 0 auto; /* Center them */
+  }
+  .mainContent {
+    flex: none; /* Remove flex sizing */
+    width: 100%; /* Take full width */
+    max-width: 600px; /* Limit max width for main content when stacked */
+    margin: 0 auto; /* Center it */
+    padding: 25px 15px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .findPeopleBox {
+    padding: 20px;
+  }
+  .userCard {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+  .userInfo {
+    min-width: unset;
+    width: 100%;
+  }
+  .userActions { /* Adjust actions for stacked layout */
+    width: 100%;
+    justify-content: center; /* Center the button */
+    margin-left: 0;
+    margin-top: 15px; /* Add space above button */
+  }
+  .searchInputs {
+    flex-direction: column; /* Stack search inputs vertically */
+    gap: 15px;
+  }
+  .searchInput, .searchButton {
+    width: 100%; /* Full width for stacked inputs/button */
+    flex: none; /* Override flex-grow/shrink */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px;
+  }
+  .userPic, .userPicPlaceholder {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+  .userInfo h3 {
+    font-size: 1.1rem;
+  }
+  .userLocation, .userBio, .userProfession {
+    font-size: 0.85rem;
+  }
+  .sendRequestButton, .viewProfileButton { /* Apply to both buttons */
+      font-size: 14px;
+      padding: 8px 15px;
+  }
+  .searchInputs {
+      gap: 10px;
+  }
+  .searchInput {
+      padding: 8px 12px;
+  }
+  .searchButton {
+      padding: 8px 15px;
+      font-size: 14px;
+  }
+}

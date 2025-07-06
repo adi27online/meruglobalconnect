@@ -1,0 +1,425 @@
+/* src/app/matrimony/matrimony.module.css */
+
+/* Consistent full-page background and centering */
+.container {
+  display: flex; /* NEW: Establishes a flex container for the main layout */
+  padding: 20px; /* Padding around the entire dashboard content */
+  background: linear-gradient(to right, #f5f5f7, #e4e4e7); /* Base gradient from homepage */
+  min-height: calc(100vh - var(--navbar-height, 0px)); /* Full viewport height minus navbar height */
+  gap: 20px; /* NEW: Space between sidebar, main content, and rightbar columns */
+  position: relative; /* Needed for pseudo-element positioning */
+  overflow: hidden; /* Hides parts of the animation outside the container */
+}
+
+/* Animated background pseudo-element */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,122,255,0.2), transparent 70%),
+              radial-gradient(circle, rgba(100,100,255,0.1), transparent 50%);
+  animation: moveBackground 12s linear infinite;
+  z-index: 0;
+}
+
+/* Animation keyframes */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Common styles for the main content panels (sidebar, main, rightbar) */
+.sidebar, .matrimonyMainContent, .rightbar { /* NEW: .matrimonyMainContent */
+  background: white; /* White background for panels */
+  border-radius: 12px; /* Rounded corners for panels */
+  padding: 20px; /* Internal padding for panel content */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  position: relative; /* To ensure these elements are above the ::before pseudo-element */
+  z-index: 1; /* To bring them to the foreground */
+  font-family: 'Arial', sans-serif; /* Consistent font */
+}
+
+/* Left Sidebar specific styles */
+.sidebar {
+  flex: 1; /* Takes 1 unit of flex space, making it narrower */
+}
+
+/* NEW: Main content area for matrimony profile */
+.matrimonyMainContent {
+  flex: 2; /* Takes 2 units of flex space, making it wider than sidebars */
+  text-align: center; /* Center content horizontally within this main panel */
+  /* Remove max-width here, it will be handled by flex distribution */
+}
+
+/* Right Sidebar specific styles */
+.rightbar {
+  flex: 1; /* Takes 1 unit of flex space */
+}
+
+/* Inner box for matrimony profile details, now nested inside .matrimonyMainContent */
+.matrimonyProfileDetailsBox { /* NEW: Renamed from .matrimonyProfileBox */
+  width: 100%; /* Take full width of its parent (.matrimonyMainContent) */
+  /* No fixed max-width here, flex will control overall width */
+  background: white; /* Re-apply white background, though parent already has it for consistency */
+  padding: 0; /* No padding here, as .matrimonyMainContent provides it */
+  border-radius: 16px; /* Retain border-radius */
+  /* box-shadow and text-align are inherited from .matrimonyMainContent */
+  text-align: center;
+}
+
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: #1c1c1e;
+}
+
+/* Rules Section Styles */
+.rulesSection {
+  text-align: left;
+}
+
+.rulesList {
+  list-style: none; /* Remove default list bullets */
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.rulesList li {
+  display: flex; /* For icon and text alignment */
+  align-items: flex-start;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.ruleIcon {
+  font-size: 1.2em;
+  margin-right: 10px;
+  color: #007aff; /* Accent color for icons */
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.enterMatrimonyButton {
+  padding: 14px 28px;
+  background-color: #28a745; /* Green for entry button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Arial', sans-serif;
+  margin-top: 20px;
+}
+
+.enterMatrimonyButton:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+
+/* Matrimony Header (for profile pic and basic details) */
+.matrimonyHeader {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  gap: 15px; /* Space between picture and text info */
+  margin-bottom: 20px; /* Space below this header block */
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee; /* Subtle separator */
+  margin-top: 20px; /* Space from title */
+}
+
+.matrimonySectionProfilePic {
+  width: 80px; /* Size for the section-specific picture */
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007aff; /* Accent border */
+  flex-shrink: 0; /* Prevent it from shrinking */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.matrimonySectionProfilePicPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border: 2px solid #ccc;
+}
+
+.matrimonyBasicInfo {
+  flex-grow: 1; /* Allows the info to take up remaining space */
+  text-align: left; /* Ensure text alignment is correct */
+}
+
+.matrimonyBasicInfo p {
+  margin-bottom: 5px; /* Smaller margin for details in this section */
+  font-size: 15px; /* Slightly smaller font */
+}
+
+.matrimonyBasicInfo p:last-child {
+  margin-bottom: 0;
+}
+
+/* Styles for the main matrimony details section */
+.matrimonyDetails {
+  text-align: left; /* Align text within details to the left */
+  margin-bottom: 30px;
+  padding: 0 10px; /* Small horizontal padding inside details */
+}
+
+.matrimonyDetails p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.matrimonyDetails p strong {
+  color: #1c1c1e;
+  margin-right: 5px;
+}
+
+.noAdditionalDetails {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+/* Matrimony Pictures Gallery */
+.matrimonyGallery {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.matrimonyGallery h4 {
+    font-size: 18px;
+    color: #007aff;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.matrimonyPicturesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Center images within the gallery */
+    margin-top: 10px;
+}
+
+.matrimonyGalleryPic {
+    width: 100px; /* Fixed size for gallery thumbnails */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.matrimonyGalleryPic:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+/* Actions buttons/links container */
+.profileActions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+/* Edit Profile Button - aligned with login.module.css .button */
+.editProfileButton {
+  padding: 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editProfileButton:hover {
+  background-color: #1f2937;
+  transform: translateY(-2px);
+}
+
+/* Back to Dashboard Link - aligned with login.module.css .inlineLink */
+.backToDashboardLink {
+  color: #6b7280;
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  /* Ensure clickability for links in error state */
+  cursor: pointer; 
+  pointer-events: auto; 
+}
+
+.backToDashboardLink:hover {
+  color: #374151;
+}
+
+/* Loading and error states (reused from viewprofile/dashboard for consistency) */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+  z-index: 2; /* Ensure loading state is on top */
+}
+
+.errorState { /* Added z-index to errorState */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+  z-index: 2; /* Ensure error state is on top */
+}
+
+.loadingSpinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorState h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+.errorState p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.errorState button {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer; /* Ensure buttons in error state are clickable */
+    font-weight: 500;
+    font-size: 18px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
+    pointer-events: auto; /* Ensure events are not blocked by parent */
+}
+.errorState .button { /* For "Go to Edit Profile" button */
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+.errorState .button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.errorState .buttonReload {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+.errorState .buttonReload:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+
+/* Basic Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack columns vertically on smaller screens */
+    padding: 15px;
+    gap: 15px;
+  }
+  .sidebar, .rightbar {
+    display: none; /* Hide sidebars completely on small screens */
+  }
+  .matrimonyMainContent { /* Main content takes full width when sidebars are hidden */
+    padding: 25px 15px; /* Adjust padding for smaller screens */
+  }
+  .matrimonyProfileDetailsBox {
+    padding: 0; /* Remove inner padding as mainContent provides it */
+  }
+  .title {
+    font-size: 24px;
+  }
+  .matrimonyDetails {
+    padding: 0;
+  }
+  .editProfileButton {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  .matrimonyPicturesContainer {
+    justify-content: flex-start; /* Align images to left on small screens */
+  }
+  .matrimonyGalleryPic {
+    width: 80px; /* Smaller thumbnails on small screens */
+    height: 80px;
+  }
+  .matrimonyHeader {
+      flex-direction: column; /* Stack image and info vertically */
+      align-items: center; /* Center items in column */
+      text-align: center; /* Center text */
+      gap: 10px;
+  }
+  .matrimonyBasicInfo {
+      text-align: center; /* Center text info on small screens */
+  }
+  .rulesList li {
+      font-size: 15px;
+  }
+  .enterMatrimonyButton {
+      font-size: 16px;
+      padding: 12px 20px;
+  }
+}
