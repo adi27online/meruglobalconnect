@@ -12,12 +12,12 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src",
+    "baseUrl": "src", // Keep this as 'src'
     "target": "ES2017",
     "paths": {
-      "@/*": ["*"],
-      "@/lib/*": ["../lib/*"],
-      "@/types/*": ["lib/types/*"]
+      "@/*": ["*"],        // Maps @/some-file to src/some-file
+      "@/lib/*": ["lib/*"],  // <-- CORRECTED: Maps @/lib/some-file to src/lib/some-file
+      "@/types/*": ["lib/types/*"] // Maps @/types/some-file to src/lib/types/some-file
     },
     "plugins": [
       {
